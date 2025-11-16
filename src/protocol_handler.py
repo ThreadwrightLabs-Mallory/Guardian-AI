@@ -11,30 +11,45 @@ Author: Mallory
 import json
 import os
 
-class ProtocolHandler:
-    def __init__(self, memory_path=None):
-        self.memory_path = memory_path or "memory/parent.jsonl"
-        self.protocols = {}
-        self.load_memory()
+class GuardianProtocolHandler:
+    def __init__(self, memory_path="memory/parent.jsonl"):
+        self.memory_path = memory_path
+        self.protocols = self.load_protocols()
 
-    def load_memory(self):
+    def load_protocols(self):
+        protocols = []
         if not os.path.exists(self.memory_path):
-            print(f"No memory file found at {self.memory_path}")
-            return
+            print(f"[Warning] No memory file found at {self.memory_path}")
+            return protocols
 
-        with open(self.memory_path, 'r') as file:
-            lines = file.readlines()
-            self.protocols = [json.loads(line) for line in lines]
-        print(f"Loaded {len(self.protocols)} protocols from memory.")
+        with open(self.memory_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                try:
+                    protocol = json.loads(line.strip())
+                    protocols.append(protocol)
+                except json.JSONDecodeError:
+                    print("[Error] Skipping malformed line.")
+                    continue
+        print(f"[Info] Loaded {len(protocols)} protocols from memory.")
+        return protocols
+
+    def get_protocol_by_name(self, name):
+        for protocol in self.protocols:
+            if protocol.get("name") == name:
+                return protocol
+        return None
+
+    def get_protocols_by_type(self, ptype):
+        return [p for p in self.protocols if p.get("type") == ptype]
 
     def execute_protocol(self, protocol_name):
-        for protocol in self.protocols:
-            if protocol.get("name") == protocol_name:
-                print(f"Executing protocol: {protocol_name}")
-                return protocol.get("instructions", "No instructions found.")
-        return f"Protocol '{protocol_name}' not found."
+        protocol = self.get_protocol_by_name(protocol_name)
+        if protocol:
+            print(f"[Execute] Protocol '{protocol_name}' found. Running instructions...")
+            return protocol.get("instructions", "No instructions found.")
+        return f"[Error] Protocol '{protocol_name}' not found."
 
 # Example usage
 if __name__ == "__main__":
-    handler = ProtocolHandler()
+    handler = GuardianProtocolHandler()
     print(handler.execute_protocol("anti_shame"))
