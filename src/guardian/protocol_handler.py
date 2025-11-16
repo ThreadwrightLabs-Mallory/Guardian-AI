@@ -13,7 +13,7 @@ import os
 
 class GuardianProtocolHandler:
     def __init__(self, memory_path="memory/parent.jsonl"):
-        self.memory_path = memory_path
+        self.memory_path = memory_path or "C:\\Useres\\Shadow\\Desktop\\SentientCode_Vault\\parent_index.jsonl"
         self.protocols = self.load_protocols()
 
     def load_protocols(self):
