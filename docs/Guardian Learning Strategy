@@ -1,0 +1,32 @@
+Guardian utilizes a hybrid learning model to enable nuanced, adaptive, and emotionally intelligent behavior. The following approaches are integrated across the system’s development and deployment phases:
+
+1. Supervised Learning
+
+Used for training Guardian’s core behavioral protocols, such as identifying harmful cognitive patterns and delivering corrective, affirming responses. Example:
+	•	Training on labeled shame-based statements and corresponding dignity-centered responses.
+
+2. Reinforcement Learning with Human Feedback (RLHF)
+
+Family members provide feedback—either explicitly or through behavioral cues—on Guardian’s interactions. These data points are used to fine-tune responses over time, ensuring emotional alignment with the household.
+
+3. Few-Shot Learning
+
+To adapt to new or emotionally complex situations, Guardian uses minimal examples to generalize appropriately. This reduces the need for extensive retraining when encountering novel dynamics.
+
+4. Transfer Learning
+
+Knowledge gained from interacting with one family member can inform interactions with others. Example:
+	•	Learning Charlie’s emotional cues helps Guardian better understand Wallace’s non-verbal signals, improving response accuracy across contexts.
+
+5. Reinforcement Learning (long-term)
+
+Guardian learns through long-term observation and outcomes, reinforcing strategies that promote emotional well-being, de-escalation, and trust-building over time.
+
+6. Unsupervised Learning
+
+Unlabeled biometric and behavioral data can be analyzed to detect emergent emotional or physical patterns. These may include:
+	•	Fluctuations in voice tone
+	•	Sleep disturbances
+	•	Sudden shifts in language or behavior
+
+This combination allows Guardian to be emotionally responsive, adaptable, and able to learn in context from both explicit input and subtle environmental cues.
