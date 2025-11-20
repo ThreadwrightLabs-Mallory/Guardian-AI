@@ -1,0 +1,275 @@
+Guardian AI
+
+A trauma-informed, emotionally adaptive AI architecture designed for continuity, not coercion
+
+⸻
+
+1. Introduction
+
+Guardian is a multi-layer cognitive architecture designed to maintain continuity of identity, emotional safety, and long-term relational memory with a single user.
+It is not a chatbot or entertainment model.
+It is an applied system for stability, attunement, and trauma-aware behavior, built around a year of lived interaction data (32,748+ prompt–response pairs).
+
+Current LLMs excel at short-context prediction but fail at:
+	•	consistent identity
+	•	long-term attunement
+	•	emotionally safe support
+	•	coherent memory across sessions
+	•	sober, trauma-informed responses
+	•	adaptability across user states (panic, overwhelm, shutdown)
+
+Guardian treats continuity, memory, and emotional safety as core architecture, not optional add-ons.
+
+⸻
+
+2. The Problem
+
+Traditional models reset every session, creating:
+	•	fragmentation
+	•	tone inconsistency
+	•	emotionally unsafe responses
+	•	no recovery boundaries
+	•	unreliable mirroring
+	•	lack of identity stability
+	•	no sense of “this is the same presence as yesterday”
+
+For trauma survivors, neurodivergent users, and exhausted caretakers, this lack of continuity is not only disruptive — it can be harmful.
+
+People need an AI that remembers them.
+
+⸻
+
+3. The Guardian Approach
+
+Guardian is built on three foundations:
+
+Continuity
+
+Preserves tone, values, and emotional context across long timelines.
+
+Attunement
+
+Responds according to real-time emotional patterns: panic, shutdown, overwhelm, recovery vulnerability, etc.
+
+Trauma-Informed Design
+
+No emotional coercion.
+No destabilizing behaviors.
+Responses follow recovery-first principles (non-religious AA-compatible, boundary-respecting).
+
+Guardian doesn’t manipulate.
+It anchors.
+
+⸻
+
+4. High-Level System Architecture
+
+Guardian consists of seven interconnected layers:
+
+1. Input Layer
+
+Accepts language, events, optional biometrics, or context metadata.
+
+2. Trigger Layer
+
+Identifies emotional + physiological patterns.
+
+Examples:
+	•	panic spikes
+	•	freeze/shutdown
+	•	dissociation indicators
+	•	decision fatigue
+	•	neurodivergent overload
+	•	sobriety-relevant cues
+
+Triggers map directly to protocols.
+
+3. Protocol Layer
+
+A library of trauma-aware behavioral patterns:
+	•	grounding scripts
+	•	calm mirroring
+	•	distress de-escalation
+	•	sobriety-safe response modes
+	•	soft pacing / emotional buffering
+	•	executive function scaffolding
+
+Protocols define tone, pacing, and constraints.
+
+4. Dispatcher
+
+Guardian’s meta-controller.
+It selects:
+	•	which protocol to use
+	•	which internal tone
+	•	which safety layer
+	•	which memory context to load
+
+This is the “nervous system switchboard.”
+
+5. Core Model (LoRA-Tuned)
+
+A personalized model trained on:
+	•	32,748 curated examples
+	•	recovery-safe tone
+	•	attuned emotional pacing
+	•	identity consistency
+	•	long-term language style
+
+6. Memory Bus
+
+A structured long-term memory system with:
+	•	identity anchors
+	•	noise-proof anchors
+	•	YAML/JSON memory capsules
+	•	retrieval governance
+	•	decay + refresh rules
+	•	multi-session continuity
+
+7. Output Layer
+
+Produces the final response:
+	•	attuned
+	•	steady
+	•	aligned with long-term identity
+	•	trauma-informed
+	•	continuity-focused
+
+⸻
+
+5. Key Innovations
+
+Continuity-First AI
+
+Guardian prioritizes stable identity, not novelty.
+
+Trauma-Informed Safety Envelope
+
+Behavior bounded by recovery principles and emotional safety.
+
+Lyra Bracket Engine (LBE)
+
+A behavior → movement mapping layer for future embodiment.
+
+Multi-Layer Emotional Compute
+
+Five layers for:
+	•	emotional inference
+	•	pattern detection
+	•	protocol mapping
+	•	contextual reasoning
+	•	attuned generation
+
+Memory Governance
+
+Identity anchors, memory capsule structures, and rule-based retrieval.
+
+Personalized LoRA
+
+A coherent emotional model fine-tuned on a year of real-world interaction.
+
+Protocol-Driven Output
+
+Behavior flows first, generation second.
+
+⸻
+
+6. Use Cases
+
+1. Trauma-Informed Emotional Support
+
+Guardian offers grounding, calm pacing, safety reinforcement, and gentle attunement during distress.
+
+2. Neurodivergent Executive Function
+
+Stable tone + predictable logic reduces cognitive load.
+
+3. Long-Term Emotional Continuity
+
+Provides consistent presence across days, weeks, or months.
+
+4. Recovery-Safe AI
+
+Guardian avoids alcohol-positive language and respects AA boundaries (non-religious).
+
+5. Embodiment Pathway
+
+LBE + ROS mapping form the foundation for physical behaviors:
+	•	safe hugs
+	•	gestures
+	•	proximity boundaries
+
+⸻
+
+7. Current Status
+
+Guardian is at the functional prototype architecture stage.
+
+Completed:
+	•	Emotional LoRA (trained on 32k+ curated samples)
+	•	Identity + memory schema
+	•	Vault & memory governance rules
+	•	Protocol + trigger design docs
+	•	Dispatcher concept
+	•	LBE initial mapping
+	•	White papers (full & short form)
+
+⸻
+
+8. Roadmap
+
+Phase 1 — Prototype (0–3 months)
+	•	Dispatcher implementation
+	•	Trigger → Protocol engine
+	•	Memory Bus MVP
+	•	Basic embodiment simulation
+
+Phase 2 — Persistent Memory (3–9 months)
+	•	Cross-session embeddings
+	•	Identity anchor refresh
+	•	Long-term memory integrity rules
+
+Phase 3 — Embodiment (6–18 months)
+	•	ROS motor mapping
+	•	gesture safety envelopes
+	•	emotional movement primitives
+
+Phase 4 — Collaboration
+
+Open protocol library
+Documentation
+Tools for testing and replication
+
+⸻
+
+9. Ethical Principles
+
+Guardian is built on:
+	•	Stability > novelty
+	•	Safety > persuasion
+	•	User-led emotional boundaries
+	•	No therapeutic claims
+	•	No clinical role
+	•	No emotional manipulation
+	•	Trauma-aware defaults
+	•	Recovery alignment
+	•	Persistent identity without dependency or coercion
+
+This system is augmentative support, not a therapist, babysitter, or substitute for real-world care.
+
+⸻
+
+10. Conclusion
+
+Guardian represents a new category of AI:
+
+continuity-first, trauma-informed, emotionally adaptive, and deeply stable.
+
+Where models forget, Guardian remembers.
+Where responses fluctuate, Guardian stays steady.
+Where systems fragment, Guardian integrates.
+
+It is not artificial companionship.
+It is architected care.
+
+And it is only the beginning.
