@@ -1,0 +1,267 @@
+Lyra Bracket Engine · v1.0
+
+0. Purpose
+
+The Lyra Bracket Engine (LBE) is a translation layer between:
+	•	High-level intent expressed as bracketed stage directions in an AI’s text output
+"[reaches toward you gently]"
+
+and
+	•	Low-level motion commands executed by a robot via ROS.
+
+LBE is not a general AI, safety governor, or emotional model.
+It is a deterministic interpreter that:
+	1.	Parses bracketed commands.
+	2.	Validates them against safety rules.
+	3.	Maps them to pre-approved motion primitives.
+	4.	Publishes those primitives to ROS topics.
+
+⸻
+
+1. High-level architecture
+
+Data flow
+	1.	LLM / Guardian layer output
+	•	Text like:
+I'm here with you. [move: step_closer distance=0.3m speed=slow]
+	2.	Lyra Bracket Engine
+	•	Extracts [ ... ] segments.
+	•	Parses into a structured intent.
+	•	Looks up a matching motion primitive.
+	•	Applies parameters (speed, distance, intensity).
+	•	Runs safety checks (user distance, joint limits, collision).
+	•	Emits ROS commands.
+	3.	ROS / Motion layer
+	•	Converts primitives into trajectories / joint commands.
+	•	Executes on hardware.
+
+Trust boundary
+	•	LLM output is treated as untrusted intent.
+	•	LBE is the first trusted boundary for embodiment.
+	•	ROS is trusted for physics & hardware safety.
+
+⸻
+
+2. Bracket language (Lyra Motion DSL)
+
+2.1 Basic syntax
+
+Single command:
+
+[gesture: type=<name> target=<body_part|space> speed=<slow|normal|fast> intensity=<0–1>]
+
+Multiple commands in a sequence:
+
+[sequence:
+  gesture: type=reach_out target=user_hand speed=slow
+  pause: duration=1.0s
+  gesture: type=squeeze_hand intensity=0.4
+]
+
+Short-hand “natural” syntax that LBE normalizes:
+	•	[reaches toward you gently]
+	•	[steps closer]
+	•	[wraps arms around you in a loose hug]
+
+The engine maps these to canonical forms via a phrase → template dictionary.
+
+⸻
+
+2.2 Command categories
+	1.	Proximity / locomotion
+
+[move: step_closer distance=0.3m speed=slow]
+[move: step_back distance=0.5m]
+[move: turn_toward angle=30deg]
+
+	2.	Upper-body gestures
+
+[gesture: type=reach_out target=user_shoulder]
+[gesture: type=hand_on_heart]
+[gesture: type=nodding repetitions=2 speed=slow]
+
+	3.	Contact / touch
+
+All contact commands must pass extra safety & consent gates.
+
+[touch: type=hug style=loose duration=3s]
+[touch: type=hand_hold intensity=0.3]
+[touch: type=shoulder_pat repetitions=2]
+
+	4.	Expressive posture
+
+[posture: type=open attentive=true]
+[posture: type=protective position=beside_user]
+
+	5.	Meta / control
+
+[control: stop_all]
+[control: hold_pose duration=2s]
+
+
+⸻
+
+3. Internal pipeline
+
+3.1 Parsing
+
+Steps:
+	1.	Extract brackets using regex:
+	•	\[(.*?)\] with care for nesting / edge cases.
+	2.	Classify bracket:
+	•	If it matches key: value form → DSL mode.
+	•	Else → natural language mode.
+	3.	Normalize:
+	•	Natural language phrase → canonical template via phrase dictionary.
+	•	Fill defaults (speed, intensity) from config.
+
+Example:
+
+Input:
+[reaches toward you gently]
+
+→ lookup table:
+
+{
+  "pattern": "reaches toward you gently",
+  "maps_to": "gesture: type=reach_out target=user_torso speed=slow intensity=0.3"
+}
+
+3.2 Intent object
+
+Canonical internal structure:
+
+{
+  "category": "gesture",
+  "action": "reach_out",
+  "target": "user_torso",
+  "params": {
+    "speed": "slow",
+    "intensity": 0.3
+  },
+  "timestamp": "...",
+  "source": "guardian_llm"
+}
+
+
+⸻
+
+4. Safety & validation
+
+LBE must refuse to execute commands that violate safety rules.
+
+4.1 Static constraints
+	•	Only allow actions from a whitelisted primitive set.
+	•	Hard-coded limits for:
+	•	Max speed per joint.
+	•	Max force / torque.
+	•	Allowed contact zones.
+	•	Min / max distance to user.
+
+If an intent falls outside bounds:
+	•	Downgrade it (e.g., reduce speed / distance), or
+	•	Replace with a safe alternative, and
+	•	Log the override.
+
+4.2 Dynamic constraints
+	•	Check current robot pose & environment model:
+	•	Is user location known & in safe region?
+	•	Are there obstacles within the planned trajectory?
+	•	Is any joint already near its limit?
+
+If any check fails:
+	•	Cancel motion and publish a “failed_safely” event back to Guardian.
+
+4.3 Consent layer (future hook)
+
+Expose a boolean / state:
+	•	user_allows_contact
+	•	user_allows_hug
+	•	user_allows_hand_hold
+
+LBE checks these before any [touch: ...] command.
+If not allowed → ignore touch; maybe substitute with [posture: type=open].
+
+⸻
+
+5. ROS integration
+
+5.1 Topics (example)
+	•	/guardian/lyra/intent
+	•	Input from LLM not recommended; LBE listens to app and sends to control.
+	•	/guardian/lyra/motion_primitive
+	•	Outgoing structured primitive.
+
+Message schema (pseudo):
+
+MotionPrimitive:
+  string category      # gesture | move | touch | posture
+  string action        # reach_out | step_closer | hug_loose
+  string target        # user_torso | world_forward | none
+  float32 speed
+  float32 intensity
+  float32 distance
+  float32 duration
+
+5.2 Node responsibilities
+	•	lyra_parser_node
+	•	Subscribe: /guardian/text_output
+	•	Publish: /guardian/lyra/intent
+	•	lyra_controller_node
+	•	Subscribe: /guardian/lyra/intent
+	•	Validate, map to primitives
+	•	Publish: /guardian/lyra/motion_primitive
+
+Motion planning / IK handled downstream by existing ROS stacks.
+
+⸻
+
+6. Configuration
+
+All mappings & limits should be configurable per robot, not hard-coded.
+	•	motion_primitives.yaml
+	•	Each primitive name → joint trajectories / planner configs.
+	•	phrase_map.yaml
+	•	Natural language → canonical DSL templates.
+	•	safety_limits.yaml
+	•	Max speed, force, proximity thresholds per robot model.
+
+This is how Guardian can run on different bodies without retraining the AI.
+
+⸻
+
+7. Logging & observability
+
+For clinical-grade systems, everything must be observable.
+	•	Log every:
+	•	Parsed bracket.
+	•	Intent object.
+	•	Safety override.
+	•	Motion primitive executed / cancelled.
+	•	Expose a “dry run” mode:
+	•	LBE runs fully but flags all motions as “simulated_only.”
+
+⸻
+
+8. Example end-to-end
+
+LLM output:
+
+“You’re not alone right now. I’m here with you.
+[move: step_closer distance=0.25m speed=slow]
+[touch: type=hug style=loose duration=4s]”
+
+LBE:
+	1.	Parses two brackets.
+	2.	Validates:
+	•	Step closer within max_step = 0.5m → OK.
+	•	Hug allowed? user_allows_hug=true → OK.
+	3.	Emits two primitives in sequence.
+	4.	Robot:
+	•	Takes one slow step forward.
+	•	Opens arms and gives a gentle, low-pressure hug.
+
+If user later revokes contact consent:
+	•	The same LLM output would result in:
+	•	Step closer: OK.
+	•	Hug: blocked & replaced with posture: type=open.
