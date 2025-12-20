@@ -1,0 +1,21 @@
+# Design Notes – Regulation Load Monitor
+
+This document captures raw thinking, examples, and edge cases.
+It is allowed to be messy.
+
+## Examples
+- repetitive motion that regulates but causes fatigue
+- environmental supports reducing compulsion intensity
+- obvious state narration causing irritation
+- regulation that overrides pain signals
+
+## Ethical failure modes
+- AI initiating harmful regulators
+- AI narrating emotional states unnecessarily
+- AI optimizing metrics instead of human experience
+- constant monitoring leading to hypervigilance
+
+## Language rules
+- Do not announce obvious states
+- Do not moralize regulation
+- Do not optimize toward normal
