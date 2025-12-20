@@ -1,0 +1,113 @@
+# Guardian – Regulation Load Monitor (RLM)
+
+This repository captures an early-stage concept for a **Regulation Load Monitor** within the Guardian architecture.
+
+This module exists to prevent well-intentioned systems from:
+- misclassifying regulation as pathology
+- reinforcing harmful coping behaviors
+- over-monitoring human bodies
+- narrating obvious emotional states
+- optimizing for metrics at the expense of dignity
+
+This is **infrastructure**, not a feature.
+
+---
+
+## What problem this addresses
+
+Human nervous systems often use unconventional or costly regulation strategies
+(e.g., repetitive motion, sensory seeking, pacing).
+
+These strategies may:
+- stabilize the system overall
+- while introducing localized or long-term cost
+
+Most systems fail by:
+- treating regulation as something to correct
+- reacting to single metrics instead of trends
+- optimizing toward population norms
+- intervening too early or too often
+
+The Regulation Load Monitor exists to **observe, not correct**.
+
+---
+
+## What this module is NOT
+
+- Not an intervention engine  
+- Not a behavior correction system  
+- Not a compliance or normalization layer  
+- Not a diagnostic tool  
+- Not allowed to recommend or initiate harmful regulators  
+
+Guardian must never suggest behaviors involving:
+- self-harm
+- addiction (e.g., alcohol, drugs)
+- pain-based regulation
+- compulsive injury
+
+Even if metrics temporarily improve.
+
+---
+
+## Core principles
+
+- **Observation before inference**
+- **Trends over spikes**
+- **Cost ≠ danger**
+- **Silence is often correct**
+- **Consent precedes action**
+- **Environmental support may be pre-authorized**
+- **Harmful regulators are never initiated or reinforced**
+- **The user is the authority on their own body**
+
+---
+
+## High-level role in the system
+
+The Regulation Load Monitor:
+- runs continuously as a low-frequency background process
+- observes trends across time (frequency, duration, recovery)
+- tracks both stabilizing effects and accumulated cost
+- does not act directly
+- may suggest speech or support only under strict conditions
+
+This module sits **between memory/baseline modeling and response generation**.
+
+---
+
+## Speaking conditions (conceptual)
+
+The system should only surface language when ALL are true:
+- cost trends are increasing over time
+- agency appears to be shrinking
+- the behavior is carrying more load than before
+- no immediate safety danger is present
+- trust has been established
+
+Even then, language must be:
+- optional
+- non-pathologizing
+- non-directive
+- non-repetitive
+
+---
+
+## Open questions (intentionally unresolved)
+
+- What constitutes “enough time” to infer trends?
+- How should cost accumulation be represented?
+- How are thresholds configurable without becoming prescriptive?
+- How does this differ for children vs adults?
+- How does the system learn when *not* to speak?
+
+These questions are intentionally left open to prevent premature closure.
+
+---
+
+## Why this exists early
+
+This module is designed early because safety and ethics cannot be reliably
+retrofitted after optimization pressures take hold.
+
+If this layer slows development, that is a feature, not a bug.
