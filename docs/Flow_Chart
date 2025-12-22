@@ -1,0 +1,35 @@
+flowchart TD
+  A[Input: text/audio/vision/biometrics/env] --> B[SignalPacket Builder]
+  B --> C[Identity Resolver]
+  B --> D[State Estimator]
+  B --> E[Event/Interrupt Detector]
+
+  C --> F[Permission & Role Filter]
+  D --> G[Context Builder]
+  E --> H{Interrupt?}
+
+  G --> I[Memory Retrieval Trigger]
+  F --> I
+  I --> J[MemoryContextBundle]
+
+  H -->|Yes| K[Task Arbitration: interrupt handling]
+  H -->|No| L[Task Arbitration: normal loop]
+
+  J --> M[LLM Response Generator]
+  G --> M
+  F --> M
+
+  M --> N{Bracket actions present?}
+  N -->|No| O[Speak Response]
+  N -->|Yes| P[Bracket Parser]
+  P --> Q[Action Validator + Consent Gate]
+  Q --> R[ActionPlan]
+
+  R --> S[ROS Bridge / Simulator]
+  S --> T[Robot Motion]
+  O --> U[User Feedback]
+  T --> U
+
+  U --> V[Learning/Update Logs]
+  V --> D
+  V --> I
